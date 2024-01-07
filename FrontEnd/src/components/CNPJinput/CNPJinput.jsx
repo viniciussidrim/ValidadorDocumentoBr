@@ -32,7 +32,7 @@ const CNPJinput = () => {
       type="text"
       value={cnpj}
       onChange={handleChange}
-      className="p-1 w-1/2 rounded-lg outline-xdark text-center bg-slate-100"
+      className="p-1 rounded-lg outline-xdark text-center bg-slate-100"
       placeholder="Digite o CNPJ"
     />
   );
