@@ -1,1 +1,20 @@
 Pasta voltada ao backend do projeto
+
+OBS: API em GO parada, quem sabe no futuro quando manjar mais
+
+----- Passos da API em PHP -----
+
+// Chamar rota no postman de valida CPF
+
+* POST -> http://localhost:3000/api/validacpf
+
+Passar CPF no body, exemplo:
+{
+    "cpf": "09970831402"
+}
+
+-> Start api
+1º Install PHP e Composer na maquina
+2º Composer Update
+3º instalar possiveis pacotes para rodar no composer Update
+4º Rodar 'php artisan serve --port=3000' para que suba direto na 3000
