@@ -17,7 +17,7 @@ class ApiController extends Controller
             return response()->json(['message' => 'CPF inválido'], Response::HTTP_BAD_REQUEST);
         }
 
-        $noveDigitos = substr($cpf, 0, 9);
+        $noveDigitos = substr($valor, 0, 9);
         $array = str_split($noveDigitos);
         $primeiraCombinacao = 0;
         $primeiroCalculo = 10;
@@ -34,7 +34,7 @@ class ApiController extends Controller
             $segunda_combinacao = 0;
         }
 
-        $dezDigitos = substr($cpf, 0, 10);
+        $dezDigitos = substr($valor, 0, 10);
         $array2 = str_split($dezDigitos);
         $terceiraCombinacao = 0;
         $segundoCalculo = 11;
@@ -51,10 +51,10 @@ class ApiController extends Controller
             $quarta_combinacao = 0;
         }
 
-        if ($segunda_combinacao == substr($cpf, 9, 1) && $quarta_combinacao == substr($cpf, 10, 1)) {
+        if ($segunda_combinacao == substr($valor, 9, 1) && $quarta_combinacao == substr($valor, 10, 1)) {
             return response()->json(['message' => 'CPF válido'], Response::HTTP_OK, [], JSON_UNESCAPED_UNICODE);
         } else {
-            return response()->json(['message' => 'CPF inválido'], Response::HTTP_BAD_REQUEST, [], JSON_UNESCAPED_UNICODE);
+            return response()->json(['message' => 'CPF inválido'], Response::HTTP_OK, [], JSON_UNESCAPED_UNICODE);
         }
 
     }
