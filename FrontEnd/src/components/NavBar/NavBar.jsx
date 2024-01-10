@@ -14,7 +14,7 @@ const NavBar = ({page, func}) =>{
       <div className=" flex justify-between items-center">
         {/* Logo or brand */}
         <button onClick={()=>{func(1)}} className="font-bold  text-xl select-none min-w-fit">
-            Nome do App
+            Valida BR
         </button>
 
         {/* Navigation buttons */}
