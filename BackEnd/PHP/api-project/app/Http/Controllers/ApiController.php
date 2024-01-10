@@ -10,11 +10,11 @@ class ApiController extends Controller
     public function validaCpf(Request $request)
     {
 
-        $cpf = $request->input('cpf');
-
+        $cpf = $request->json('cpf');
         $valor = preg_replace("/[^0-9]/", "", $cpf);
+
         if (strlen($valor) != 11) {
-            return response()->json(['message' => 'CPF inválido'], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'CPF invalido!!!','cpf' => $cpf], Response::HTTP_BAD_REQUEST);
         }
 
         $noveDigitos = substr($valor, 0, 9);

@@ -18,8 +18,32 @@ const formatCNPJ = (value) => {
   }
 };
 
-const CNPJinput = () => {
+const CNPJInput = () => {
   const [cnpj, setCNPJ] = useState('');
+  const [validationMessage, setValidationMessage] = useState('');
+
+  const handleValidation = async (e) => {
+    e.preventDefault();
+
+    if (cnpj.length === 18) {
+      setValidationMessage('Verificando...');
+      try {
+        const response = await fetch("http://localhost:3000/api/validacnpj", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cnpj }),
+        });
+
+        const data = await response.json();
+        setValidationMessage(data.message);
+        console.log(data.message);
+      } catch (error) {
+        console.error("Error validating CNPJ:", error);
+      }
+    }
+  };
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
@@ -28,14 +52,27 @@ const CNPJinput = () => {
   };
 
   return (
-    <input
-      type="text"
-      value={cnpj}
-      onChange={handleChange}
-      className="p-1 rounded-lg outline-xdark text-center bg-slate-100"
-      placeholder="Digite o CNPJ"
-    />
+    <form onSubmit={handleValidation} className="flex flex-col items-center gap-3">
+      <input
+        type="text"
+        value={cnpj}
+        onChange={handleChange}
+        className="p-1 rounded-lg outline-xdark text-center bg-slate-100"
+        placeholder="Digite o CNPJ"
+      />
+      {validationMessage && (
+        <div className="text-light ">
+          <h1>{validationMessage}</h1>
+        </div>
+      )}
+      <button
+        type="submit"
+        className="bg-xdark text-medium px-3 py-1 rounded-md hover:font-bold duration-100"
+      >
+        Validar
+      </button>
+    </form>
   );
 };
 
-export default CNPJinput;
+export default CNPJInput;

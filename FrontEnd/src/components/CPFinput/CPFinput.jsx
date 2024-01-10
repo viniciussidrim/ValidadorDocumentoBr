@@ -20,19 +20,23 @@ const CPFinput = () => {
   const [cpf, setCPF] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
 
-  const handleValidation = async () => {
-    if (cpf.length === 14) { // Verifica o comprimento do CPF formatado
+  const handleValidation = async (e) => {
+    e.preventDefault(); // Prevents the default form submission behavior
+
+    if (cpf.length === 14) {
+      setValidationMessage('Verificando...')
       try {
         const response = await fetch("http://localhost:3000/api/validacpf", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ cpf }), // Envia o CPF formatado
+          body: JSON.stringify({ cpf }),
         });
-
+        
         const data = await response.json();
         setValidationMessage(data.message);
+        console.log(data.message);
       } catch (error) {
         console.error("Erro ao validar CPF:", error);
       }
@@ -46,7 +50,7 @@ const CPFinput = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <form onSubmit={handleValidation} className="flex flex-col items-center gap-3">
       <input
         type="text"
         value={cpf}
@@ -55,17 +59,17 @@ const CPFinput = () => {
         placeholder="Digite o CPF"
       />
       {validationMessage && (
-        <div className="text-light">
+        <div className="text-light ">
           <h1>{validationMessage}</h1>
         </div>
       )}
       <button
-        onClick={handleValidation} // Realiza a validação apenas ao pressionar o botão
-        className="bg-xdark text-medium px-3 py-1 rounded-md hover:font-bold duration-100 mt-4" // Adicionando margem na parte superior (mt-4)
+        type="submit" // Specify the button type as "submit" to trigger form submission
+        className="bg-xdark text-medium px-3 py-1 rounded-md hover:font-bold duration-100"
       >
         Validar
       </button>
-    </div>
+    </form>
   );
 };
 
