@@ -26,14 +26,14 @@ const CPFinput = () => {
     if (cpf.length === 14) {
       setValidationMessage('Verificando...')
       try {
-        const response = await fetch("http://localhost:3000/api/validacpf", {
+        const response = await fetch("https://validadorbr.ddns.net/api/validaCpf", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ cpf }),
         });
-        
+
         const data = await response.json();
         setValidationMessage(data.message);
         console.log(data.message);
